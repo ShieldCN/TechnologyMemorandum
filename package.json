@@ -1,8 +1,8 @@
 {
-  "name": "my-project",
+  "name": "Technology-Memorandum",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "",
+  "description": "Record the technical point encountered in the work",
+  "author": "Shield",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -46,7 +46,10 @@
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "element-ui":"^1.3.7",
+    "node-sass":"^4.5.3",
+    "sass-loader":"^6.0.6"
   },
   "engines": {
     "node": ">= 4.0.0",
