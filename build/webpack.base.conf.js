@@ -22,15 +22,13 @@ module.exports = {
 		extensions: ['.js', '.vue', '.json'],
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js',
-			'@': resolve('src')
+			'@': resolve('src'),
+			'api': path.resolve(__dirname, '../src/api'),
+            'components': path.resolve(__dirname, '../src/components')
 		}
 	},
 	module: {
 		rules: [
-			{
-				test: /\.scss$/,
-				loaders: ["style", "css", "sass"]
-			},
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
