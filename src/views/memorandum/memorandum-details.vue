@@ -20,7 +20,7 @@
                 <el-input v-model="ruleForm.tabs"></el-input>
             </el-form-item>
             <el-form-item label="详情" prop="details">
-                <el-input type="textarea" v-model="ruleForm.details"></el-input>
+                <vue-editor v-model="ruleForm.details"></vue-editor>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -32,6 +32,7 @@
 
 <script>
 import { categoryApi } from 'api/index.js';
+import { VueEditor } from 'vue2-editor'
 export default {
     data() {
         return {
@@ -60,7 +61,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                    console.log(this.ruleForm)
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -70,6 +71,9 @@ export default {
         back() {
             this.$router.go(-1);
         }
+    },
+    components: {
+        VueEditor
     }
 }
 </script>

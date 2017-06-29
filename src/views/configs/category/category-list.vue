@@ -64,7 +64,7 @@ export default {
 				inputErrorMessage: '类别名称不能为空'
 			}).then(({ value }) => {
 				
-			})
+			}).catch(()=>{})
 		},
 		tableEdit(row) {
 			this.$prompt('请编辑类别名称', '编辑类别', {
@@ -77,7 +77,7 @@ export default {
 				inputErrorMessage: '类别名称不能为空'
 			}).then(({ value }) => {
 				
-			})
+			}).catch(()=>{})
 		},
 	}
 }
