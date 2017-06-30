@@ -63,7 +63,13 @@ export default {
 				},
 				inputErrorMessage: '类别名称不能为空'
 			}).then(({ value }) => {
-				
+				categoryApi.categoryAdd(value).then((res) => {
+					console.log(res)
+					this.$message({
+						type: 'success',
+						message: '添加成功!'
+					});
+				})
 			}).catch(()=>{})
 		},
 		tableEdit(row) {
