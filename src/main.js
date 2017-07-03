@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import router from './router'
 import VueResource from 'vue-resource';
-import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import './assets/scss/index.scss'
@@ -14,7 +13,5 @@ Vue.use(ElementUI)
 Vue.use(VueResource)
 new Vue({
   el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+  router
 })

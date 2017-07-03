@@ -25,6 +25,15 @@ export default {
 		return {
 			menuData: [
 				{
+					name: "用户管理",
+					children: [
+						{
+							name: "用户列表",
+							pathName:"userList"
+						}
+					]
+				},
+				{
 					name: "配置管理",
 					children: [
 						{

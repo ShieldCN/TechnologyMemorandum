@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div class="panel">
 		<!--头部-->
 		<div class="header">
 			<div class="logo fl">
