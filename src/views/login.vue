@@ -22,6 +22,7 @@ export default {
             if(this.loginData.username&&this.loginData.password){
                 loginApi.login(this.loginData).then(res=>{
                     if(res.data.state==0){
+                        localStorage.username=this.loginData.username;
                         this.$router.push({ name: "home" });
                     }else{
                         this.$message({

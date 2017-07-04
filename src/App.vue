@@ -4,7 +4,7 @@
 		<div class="header">
 			<div class="logo fl">
 				<!--<a><img src="" height="80"></a>-->
-				<a @click="go('home')">TM</a>
+				<a @click="goHome()">TM</a>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -37,9 +37,14 @@ export default {
 			return this.$route.meta;
 		}
 	},
+	mounted(){
+		if(!localStorage.username){
+			this.$router.push({name:'login'});
+		}
+	},
 	methods: {
-		go(name) {
-			this.$router.push({ name: name });
+		goHome() {
+			this.$router.push({ name: 'home' });
 		}
 	},
 	components: {

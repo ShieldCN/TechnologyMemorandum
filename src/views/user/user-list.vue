@@ -21,7 +21,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog title="用户详情" :visible.sync="dialogShow" :modal="true" :modal-append-to-body="false">
+        <el-dialog title="用户详情" :visible.sync="dialogShow" :modal="true" :modal-append-to-body="false" size="tiny">
             <el-form :model="user" ref="user" :rules="rules" label-width="100px">
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="user.username" auto-complete="off"></el-input>
