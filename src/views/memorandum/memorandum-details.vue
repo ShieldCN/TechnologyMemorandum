@@ -6,11 +6,7 @@
             </el-form-item>
             <el-form-item label="类别" prop="category">
                 <el-select v-model="ruleForm.category" placeholder="请选择类别">
-                    <el-option label="css" value="1"></el-option>
-                    <el-option label="js" value="2"></el-option>
-                    <el-option label="html5" value="3"></el-option>
-                    <el-option label="vue" value="4"></el-option>
-                    <el-option label="node" value="5"></el-option>
+                    <el-option :label="item.name" :value="item.id" v-for="item of categoryList"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="功能简述" prop="functionDesc">
@@ -31,7 +27,7 @@
 </template>
 
 <script>
-import { categoryApi } from 'api/index.js';
+import { categoryApi,memorandumApi } from 'api/index.js';
 import { VueEditor } from 'vue2-editor'
 export default {
     data() {
@@ -54,14 +50,30 @@ export default {
                 details: [
                     { required: true, message: '详情不能为空', trigger: 'blur' }
                 ]
-            }
+            },
+            categoryList:[]
         }
+    },
+    mounted(){
+        this.getCategoryList();
     },
     methods: {
         submitForm(formName) {
+            let _self=this;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    console.log(this.ruleForm)
+                    memorandumApi.memorandumAdd(_self.ruleForm).then((res) => {
+                        if (res.data.state == 0) {
+                            _self.$router.push({
+                                name:'memorandumList'
+                            })
+                        } else {
+                            _self.$message({
+                                type: 'error',
+                                message: res.data.message
+                            });
+                        }
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -70,7 +82,12 @@ export default {
         },
         back() {
             this.$router.go(-1);
-        }
+        },
+        getCategoryList() {
+			categoryApi.getCategoryList().then((res) => {
+				this.categoryList = res.data.data;
+			})
+		},
     },
     components: {
         VueEditor

@@ -28,21 +28,22 @@
 </template>
 
 <script>
-import { categoryApi } from 'api/index.js';
+import { memorandumApi } from 'api/index.js';
 export default {
 	data() {
 		return {
-			tableData: [{
-				id: 1,
-				name: 'css计算属性',
-                category:'css',
-                functionDesc:"css计算属性",
-                details:"calc，例：width: calc(100%/3 - 5px);",
-                tabs:"css,计算属性"
-			}]
+			tableData: []
 		}
 	},
+	mounted(){
+		this.getMemorandumList();
+	},
 	methods: {
+		getMemorandumList() {
+			memorandumApi.getMemorandumList().then((res) => {
+				this.tableData = res.data.data;
+			})
+		},
 		tableDelete(row) {
 			this.$confirm('此操作将永久删除【' + row.name + '】, 是否继续?', '删除记录', {
 				confirmButtonText: '确定',
