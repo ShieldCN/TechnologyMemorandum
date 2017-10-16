@@ -19,7 +19,7 @@
                 <vue-editor v-model="ruleForm.details"></vue-editor>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
                 <el-button @click="back">返回</el-button>
             </el-form-item>
         </el-form>
@@ -56,24 +56,43 @@ export default {
     },
     mounted(){
         this.getCategoryList();
+        if(this.$route.params.id){
+            this.getDetails(this.$route.params.id);
+        }
     },
     methods: {
         submitForm(formName) {
             let _self=this;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    memorandumApi.memorandumAdd(_self.ruleForm).then((res) => {
-                        if (res.data.state == 0) {
-                            _self.$router.push({
-                                name:'memorandumList'
-                            })
-                        } else {
-                            _self.$message({
-                                type: 'error',
-                                message: res.data.message
-                            });
-                        }
-                    })
+                    if(_self.ruleForm.id){
+                        memorandumApi.memorandumEdit(_self.ruleForm).then((res) => {
+                            if (res.data.state == 0) {
+                                _self.$router.push({
+                                    name:'memorandumList'
+                                })
+                            } else {
+                                _self.$message({
+                                    type: 'error',
+                                    message: res.data.message
+                                });
+                            }
+                        })
+                    }else{
+                        memorandumApi.memorandumAdd(_self.ruleForm).then((res) => {
+                            if (res.data.state == 0) {
+                                _self.$router.push({
+                                    name:'memorandumList'
+                                })
+                            } else {
+                                _self.$message({
+                                    type: 'error',
+                                    message: res.data.message
+                                });
+                            }
+                        })
+                    }
+                    
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -86,8 +105,15 @@ export default {
         getCategoryList() {
 			categoryApi.getCategoryList().then((res) => {
 				this.categoryList = res.data.data;
-			})
-		},
+			});
+        },
+        getDetails(id){
+            memorandumApi.getMemorandumDetails(id).then((res) => {
+                if(res.data.state==0){
+                    this.ruleForm = res.data.data;
+                }
+			});
+        }
     },
     components: {
         VueEditor

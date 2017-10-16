@@ -9,7 +9,7 @@
 export default {
 	data() {
 		return {
-			msg: 'this is homepage'
+			msg: 'this is a demo homepage'
 		}
 	}
 }

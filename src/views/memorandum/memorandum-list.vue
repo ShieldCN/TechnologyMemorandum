@@ -11,11 +11,30 @@
 				</div>
 			</el-col>
 		</el-row>
+		<el-form :inline="true" :model="searchForm" class="demo-form-inline">
+			<el-form-item label="名称">
+				<el-input v-model="searchForm.name" placeholder="名称"></el-input>
+			</el-form-item>
+			<el-form-item label="类别">
+				<el-select v-model="searchForm.category" placeholder="类别">
+					<el-option :label="item.name" :value="item.id" v-for="item of categoryList"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" @click="search">查询</el-button>
+			</el-form-item>
+		</el-form>
+	
 		<el-table :data="tableData" border style="width: 100%">
 			<el-table-column prop="name" label="记录名称" width="200"></el-table-column>
-			<el-table-column prop="category" label="类别" width="100" align="center"></el-table-column>
+			<el-table-column prop="categoryText" label="类别" width="100" align="center"></el-table-column>
 			<el-table-column prop="functionDesc" label="功能简介" width="200" show-overflow-tooltip></el-table-column>
-			<el-table-column prop="details" label="详情" show-overflow-tooltip></el-table-column>
+			<el-table-column label="详情">
+				<template scope="scope">
+					<span v-html="scope.row.details" class="overflowEllipsis" style="height:38px;display:block;"></span>
+				</template>
+			</el-table-column>
+			</el-table-column>
 			<el-table-column prop="tabs" label="标签" width="200"></el-table-column>
 			<el-table-column label="操作" width="180">
 				<template scope="scope">
@@ -28,19 +47,25 @@
 </template>
 
 <script>
-import { memorandumApi } from 'api/index.js';
+import { categoryApi,memorandumApi } from 'api/index.js';
 export default {
 	data() {
 		return {
-			tableData: []
+			tableData: [],
+			categoryList:[],
+			searchForm:{
+				name:"",
+				category:""
+			}
 		}
 	},
-	mounted(){
+	mounted() {
+		this.getCategoryList();
 		this.getMemorandumList();
 	},
 	methods: {
 		getMemorandumList() {
-			memorandumApi.getMemorandumList().then((res) => {
+			memorandumApi.getMemorandumList(this.searchForm).then((res) => {
 				this.tableData = res.data.data;
 			})
 		},
@@ -50,29 +75,37 @@ export default {
 				cancelButtonText: '取消',
 				type: 'warning'
 			}).then(() => {
-				this.categoryDelelte(row.id);
+				this.memorandumDelete(row.id);
 			});
 		},
-		categoryDelelte(id) {
-			categoryApi.categoryDelete(id).then((res) => {
-				console.log(res)
+		memorandumDelete(id) {
+			memorandumApi.memorandumDelete(id).then((res) => {
 				this.$message({
 					type: 'success',
 					message: '删除成功!'
 				});
+				this.getMemorandumList();
 			})
 		},
 		tableAdd() {
-			this.$router.push({name:'memorandumAdd'});
+			this.$router.push({ name: 'memorandumAdd' });
 		},
+		getCategoryList() {
+			categoryApi.getCategoryList().then((res) => {
+				this.categoryList = res.data.data;
+			});
+        },
 		tableEdit(row) {
 			this.$router.push({
-                name:'memorandumEdit',
-                params:{
-                    id:row.id
-                }
-            })
+				name: 'memorandumEdit',
+				params: {
+					id: row.id
+				}
+			})
 		},
+		search(){
+			this.getMemorandumList();
+		}
 	}
 }
 </script>

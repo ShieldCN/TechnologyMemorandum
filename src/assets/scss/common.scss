@@ -34,6 +34,11 @@ html,body,#app,.panel{
 .align-center{
     text-align: center;
 }
+.overflowEllipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 // header
 .header{
     height: 80px;

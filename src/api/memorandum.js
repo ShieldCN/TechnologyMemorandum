@@ -12,5 +12,8 @@ export default {
     },
     memorandumDelete(id) {
         return Vue.http.delete(basePath.baseUrl + `memorandum/${id}`);
+    },
+    getMemorandumDetails(id) {
+        return Vue.http.get(basePath.baseUrl + `memorandum/${id}`);
     }
 };
