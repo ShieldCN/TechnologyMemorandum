@@ -6,7 +6,6 @@ import VueResource from 'vue-resource';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import './assets/scss/index.scss'
-import 'mavon-editor/dist/css/index.css'
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 
